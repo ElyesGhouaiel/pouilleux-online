@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Joueur {
+  id               Int             @id @default(autoincrement())
+  pseudo           String          @db.VarChar(50)
+  email            String          @unique @db.VarChar(100)
+  motDePasse       String          @map("mot_de_passe") @db.VarChar(255)
+  dateInscription  DateTime        @default(now()) @map("date_inscription")
+  participations   Participation[]
+
+  @@map("joueur")
+}
+
+model Partie {
+  id             Int             @id @default(autoincrement())
+  dateDebut      DateTime        @map("date_debut")
+  dateFin        DateTime?       @map("date_fin")
+  participations Participation[]
+
+  @@map("partie")
+}
+
+model Participation {
+  id          Int     @id @default(autoincrement())
+  joueurId    Int     @map("joueur_id")
+  partieId    Int     @map("partie_id")
+  estPerdant  Boolean @default(false) @map("est_perdant")
+
+  joueur Joueur @relation(fields: [joueurId], references: [id])
+  partie Partie @relation(fields: [partieId], references: [id])
+
+  @@map("participation")
+}

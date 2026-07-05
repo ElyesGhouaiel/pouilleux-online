@@ -23,7 +23,7 @@ function shuffle(arr) {
   return a;
 }
 
-const MAX_CARDS_PER_PLAYER = 7;
+const MAX_CARDS_PER_PLAYER = 9;
 
 function prepareDeck(playerCount = 2) {
   const fullDeck = createDeck();
@@ -47,23 +47,39 @@ function prepareDeck(playerCount = 2) {
 
   const selected = [loneAce];
   const pairsNeeded = (target - 1) / 2;
-
-  // on mélange l'ordre des valeurs pour pas toujours avoir les mêmes cartes
-  const values = shuffle(Object.keys(byValue));
   let added = 0;
 
+  // pour chaque valeur on prépare ses 2 paires possibles avec des couleurs mélangées
+  // (comme ça on n'a pas toujours coeur+carreau pour la 1re paire de chaque valeur)
+  const pairsByValue = {};
+  for (const val of Object.keys(byValue)) {
+    const suits = shuffle(byValue[val]);
+    pairsByValue[val] = [
+      [suits[0], suits[1]],
+      [suits[2], suits[3]],
+    ];
+  }
+
+  // ordre des valeurs mélangé pour varier d'une partie à l'autre
+  const values = shuffle(Object.keys(byValue));
+
+  // 1er passage : une seule paire par valeur.
+  // Ça garantit un max de valeurs différentes dans la partie
+  // (au lieu de piocher toutes les couleurs de 3 valeurs comme avant).
   for (const val of values) {
-    const cards = byValue[val];
-    // on peut prendre 1 ou 2 paires par valeur (2 de chaque couleur)
-    if (added < pairsNeeded) {
-      selected.push(cards[0], cards[1]);
-      added++;
-    }
-    if (added < pairsNeeded) {
-      selected.push(cards[2], cards[3]);
-      added++;
-    }
-    if (added === pairsNeeded) break;
+    if (added >= pairsNeeded) break;
+    const [c1, c2] = pairsByValue[val][0];
+    selected.push(c1, c2);
+    added++;
+  }
+
+  // 2e passage seulement si on a besoin de plus de paires que de valeurs dispos
+  // (cas d'une partie à 4 joueurs par ex)
+  for (const val of values) {
+    if (added >= pairsNeeded) break;
+    const [c1, c2] = pairsByValue[val][1];
+    selected.push(c1, c2);
+    added++;
   }
 
   return { deck: shuffle(selected), pouilleux: loneAce };

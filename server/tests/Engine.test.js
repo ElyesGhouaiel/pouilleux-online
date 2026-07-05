@@ -21,7 +21,7 @@ test("start() distribue les cartes à tous les joueurs", () => {
 
   for (const p of engine.players) {
     assert.ok(p.hand.length > 0, `${p.pseudo} n'a pas de cartes`);
-    assert.ok(p.hand.length <= 7, `${p.pseudo} a ${p.hand.length} cartes (max 7)`);
+    assert.ok(p.hand.length <= 9, `${p.pseudo} a ${p.hand.length} cartes (max 9)`);
   }
 });
 

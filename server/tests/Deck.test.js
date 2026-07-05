@@ -45,10 +45,10 @@ test("isPair refuse deux cartes différentes", () => {
   assert.strictEqual(isPair({ value: "2", suit: "pique" }, { value: "3", suit: "pique" }), false);
 });
 
-test("prepareDeck respecte max 7 cartes par joueur", () => {
+test("prepareDeck respecte max 9 cartes par joueur", () => {
   for (const players of [2, 3, 4]) {
     const { deck } = prepareDeck(players);
-    const maxPossible = players * 7;
+    const maxPossible = players * 9;
     assert.ok(deck.length <= maxPossible, `${players} joueurs : ${deck.length} > ${maxPossible}`);
   }
 });
@@ -79,5 +79,23 @@ test("prepareDeck : le pouilleux est bien un as", () => {
   for (const players of [2, 3, 4]) {
     const { pouilleux } = prepareDeck(players);
     assert.strictEqual(pouilleux.value, "as");
+  }
+});
+
+test("prepareDeck : bonne variété de valeurs (pas juste 3 valeurs répétées)", () => {
+  // avant le fix : pour 2 joueurs on tombait sur 3 valeurs × 4 couleurs.
+  // maintenant on veut au moins autant de valeurs différentes que de paires
+  // (limité par les 12 valeurs non-as dispos).
+  for (const players of [2, 3, 4]) {
+    const { deck } = prepareDeck(players);
+    const pairsNeeded = (deck.length - 1) / 2;
+    const distinctValues = new Set(deck.map((c) => c.value));
+
+    // paires + 1 pouilleux, borné par 13 (12 valeurs non-as + l'as)
+    const expected = Math.min(13, pairsNeeded + 1);
+    assert.ok(
+      distinctValues.size >= expected,
+      `${players} joueurs : ${distinctValues.size} valeurs distinctes, ${expected} attendues`
+    );
   }
 });

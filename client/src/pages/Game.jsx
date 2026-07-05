@@ -54,6 +54,24 @@ export default function Game() {
   const isPrepPhase = gameState.phase === "prep";
   const amReady = me?.ready || false;
   const isBotTurn = !isPrepPhase && currentPlayer?.isBot;
+  const opponents = gameState.players.filter((p) => p.id !== user.id);
+
+  // angle de la flèche du tour : 180° = pointe vers moi (en bas),
+  // sinon on répartit les adversaires sur un arc au-dessus.
+  function getArrowAngle() {
+    if (isPrepPhase) return 0;
+    if (isMyTurn) return 180;
+
+    const idx = opponents.findIndex((p) => p.id === gameState.currentTurn);
+    if (idx === -1) return 180;
+
+    const n = opponents.length;
+    if (n === 1) return 0;
+
+    const spread = 55;
+    const step = (spread * 2) / (n - 1);
+    return -spread + idx * step;
+  }
 
   function toggleCard(cardId) {
     setSelectedCards((prev) => {
@@ -161,9 +179,7 @@ export default function Game() {
       )}
 
       <div className="opponents">
-        {gameState.players
-          .filter((p) => p.id !== user.id)
-          .map((p) => {
+        {opponents.map((p) => {
             const isDrawTarget = p.id === gameState.drawTargetId;
             const isCurrent = !isPrepPhase && p.id === gameState.currentTurn;
             const canDraw = !isPrepPhase && isMyTurn && isDrawTarget && !p.eliminated;
@@ -209,6 +225,20 @@ export default function Game() {
             );
           })}
       </div>
+
+      {!isPrepPhase && (
+        <div className="turn-arrow-wrap">
+          <div
+            className={`turn-arrow ${isMyTurn ? "pointing-me" : ""}`}
+            style={{ transform: `rotate(${getArrowAngle()}deg)` }}
+            aria-label="Indicateur de tour"
+          >
+            <svg viewBox="0 0 24 24" width="56" height="56">
+              <path d="M12 2 L20 12 L15 12 L15 22 L9 22 L9 12 L4 12 Z" fill="currentColor" />
+            </svg>
+          </div>
+        </div>
+      )}
 
       {message && <p className="error game-error">{message}</p>}
 

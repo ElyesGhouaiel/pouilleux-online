@@ -49,9 +49,24 @@ Le jeu multijoueur temps réel : lobby, salle, actions de jeu, synchro entre jou
 ## Activités 7 et 8 - Implémentation & optimisation
 Le code est structuré en modules cohérents, gère les erreurs (retours JSON avec `error`), sans secret en dur, avec des choix techniques cohérents (JWT stateless, WebSockets pour le temps réel, phase de préparation pour améliorer le rythme du jeu).
 
-## Activité 9 - Finalisation & analyse critique
-- [`README.md`](README.md) : installation, utilisation, fonctionnalités, limites et pistes d'amélioration
-- Section "Analyse critique" du README pour le recul sur le projet
+## Activité 9 - Sprint de finalisation
+Compte rendu du dernier sprint avant le rendu : [`sprint-finalisation.md`](sprint-finalisation.md)
+
+- État des lieux (terminé / à finaliser / bloquant)
+- Priorisation MoSCoW du sprint
+- Corrections réalisées (changelog)
+- Stabilité & tests (33 tests + scénarios manuels)
+- Préparation du playtest (scénarios, grille d'observation, métriques)
+
+## Activité 10 - Analyse critique
+Recul sur le projet : [`analyse-critique.md`](analyse-critique.md)
+
+- Points forts / points faibles
+- Parties à refactoriser
+- Apports du module
+- Feuille de route post-module (risques + plan d'action priorisé)
+
+Voir aussi la section "Analyse critique" du [`README.md`](README.md).
 
 ## Fonctionnalité IA
 Assistant conversationnel intégré au jeu, propulsé par Mistral AI.

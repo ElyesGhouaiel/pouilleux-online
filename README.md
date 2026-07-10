@@ -7,6 +7,8 @@ Projet fait pour le module **Coordination dev Front & Back** (M2 Dev fullstack, 
 Voir aussi :
 - [`dossier-cadrage.md`](dossier-cadrage.md) : le document de cadrage complet
 - [`ACTIVITES.md`](ACTIVITES.md) : où retrouver chaque activité du module
+- [`sprint-finalisation.md`](sprint-finalisation.md) : compte rendu du sprint de finalisation (activité 9)
+- [`analyse-critique.md`](analyse-critique.md) : analyse critique et feuille de route (activité 10)
 
 ## But du jeu
 
@@ -76,7 +78,7 @@ Ils sont aussi affichés sur la page de connexion (clic pour auto-remplir).
 
 ## Tests
 
-Suite de tests unitaires côté backend (32 tests) :
+Suite de tests unitaires côté backend (33 tests) :
 
 ```bash
 cd server
@@ -118,7 +120,7 @@ Ce qui marche :
 │   ├── game/                   Deck, Engine, Bot (logique jeu)
 │   ├── sockets/                index.js (Socket.io + rooms)
 │   ├── prisma/                 schema + seed
-│   ├── tests/                  32 tests unitaires
+│   ├── tests/                  33 tests unitaires
 │   └── docker-compose.yml      Postgres
 ├── docs/                       Schémas MCD / MLD
 ├── dossier-cadrage.md          Doc de cadrage complète

@@ -43,12 +43,7 @@ desktop.ini
 *.sqlite3
 prisma/dev.db
 
-# fichiers perso (helpers, notes, sortie PDF)
-.local/
-build-pdf.js
-presentation-outline.md
+# docs perso : tout ce qui doit rester chez moi et pas partir sur github
+# (notes, brouillons, pdf, ancienne structure des activités, script de génération pdf...)
+docs perso/
 *.pdf
-
-# ancienne structure activités (consolidée dans dossier-cadrage.md)
-activite-1/
-activite-2/

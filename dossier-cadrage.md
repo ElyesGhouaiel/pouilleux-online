@@ -2,7 +2,7 @@
 
 Module : Développement d'application front/back
 Rendu : document de cadrage
-Dépôt GitHub : [https://github.com/ElyesGhouaiel/le-pouilleux](https://github.com/ElyesGhouaiel/le-pouilleux)
+Dépôt GitHub : [https://github.com/ElyesGhouaiel/pouilleux-online](https://github.com/ElyesGhouaiel/pouilleux-online)
 
 ---
 
@@ -527,6 +527,6 @@ J'ai écrit une suite de tests unitaires avec le test runner natif de Node (`nod
 - `tests/Engine.test.js` : distribution des cartes, phase de préparation (markReady, allReady), défausse (valide / invalide), pioche (blocage pendant prep, blocage si pas ton tour), changement de tour, élimination, détection du perdant, protection des mains des autres joueurs dans le state
 - `tests/Bot.test.js` : défausse automatique des paires, playPrep qui marque le bot comme prêt, comportement quand le bot est éliminé
 
-32 tests au total, tous passent. Pour les lancer : `npm test` depuis le dossier `server/`.
+33 tests au total, tous passent. Pour les lancer : `npm test` depuis le dossier `server/`.
 
 Ce qui est pas testé : tout ce qui est Socket.io, routes API, et UI React. J'ai priorisé la logique de jeu parce que c'est là qu'il y a le plus de règles à vérifier (et le plus de bugs possibles). Pour le reste je teste manuellement dans le navigateur.
